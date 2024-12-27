@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+      body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 300px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.hidden {
+    display: none;
+}
+
+#error-message {
+    color: red;
+}
+
+#success-message {
+    color: green;
+}
+
+#logout-button {
+    background-color: #dc3545;
+}
+
+#logout-button:hover {
+    background-color: #c82333;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Profile</h2>
+        <div id="profile-details">
+            <p>Full Name: <span id="profile-name"><input type ="text" placeholder="Enter Name"></span></p>
+            <p>Email: <span id="profile-email"><input type = "email" placeholder="Enter Email"></span></p>
+            <p>Password: <span id="profile-password"><input type = "password" placeholder="Enter Password"></span></p>
+            <p>Confirm Password: <span id="profile-cpassword"><input type = "password" placeholder="Confirm Password"></span></p>
+            <button id="logout-button">Signup</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+
+
+
+document.getElementById('signup-form')?.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    if (!name || !email || !password) {
+        document.getElementById('error-message').textContent = 'All fields are required!';
+        document.getElementById('error-message').classList.remove('hidden');
+        return;
+    }
+
+    const user = { name, email, password };
+    const accessToken = generateAccessToken();
+
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('accessToken', accessToken);
+
+    document.getElementById('success-message').textContent = 'Signup successful!';
+    document.getElementById('success-message').classList.remove('hidden');
+
+    setTimeout(() => {
+        window.location.href = 'profile.html';
+    }, 2000); 
+});
+
+
+
+    </script>
+</body>
+</html>
